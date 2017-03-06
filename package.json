@@ -1,0 +1,25 @@
+{
+  "name": "favstories",
+  "version": "1.0.0",
+  "description": "favstories package.json",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EstesJL/fav-stories.git"
+  },
+  "author": "Jordan Estes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EstesJL/fav-stories/issues"
+  },
+  "homepage": "https://github.com/EstesJL/fav-stories#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongoose": "^4.8.6",
+    "morgan": "^1.8.1"
+  }
+}
