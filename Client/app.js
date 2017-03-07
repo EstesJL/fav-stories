@@ -15,7 +15,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
       controller: 'EditorCtrl'
   });
 
-  $urlRouterProvider.otherwise('home');
+  // $urlRouterProvider.otherwise('home');
 }]);
 
 
