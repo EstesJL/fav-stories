@@ -73,10 +73,10 @@ app.post('/posts', function(req, res, next) {
 
 });
 
-// app.get('/', function(req, res) {
-//   console.log('GETTING / ROUTE');
-//   res.redirect('/#!/');
-// })
+app.get('/', function(req, res) {
+  console.log('GETTING / ROUTE');
+  res.sendfile(path.join(__dirname, '../client/index.html');
+});
 
 
 app.get('/posts', function(req, res, next) {
