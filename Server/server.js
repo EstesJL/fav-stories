@@ -6,6 +6,8 @@ var path = require('path');
 var Q = require('q');
 var api = require("gettyimages-api");
 
+require('dotenv');
+
 
 var app = express();
 
@@ -23,7 +25,6 @@ app.use(express.static(path.join(__dirname, '../client')));
 
 
 //GET IMAGES
-
 
 
 
@@ -54,6 +55,9 @@ var Post = mongoose.model('Post', postSchema);
 //DATABASE FUNCTIONALITY
 
 app.post('/posts', function(req, res, next) {
+
+  var apiKEY = process.env.GETTY_KEY;
+  var apiSECRET = process.env.GETTY_SECRET;
 
   //GET IMAGES
   var creds = { apiKey: apiKEY, apiSecret: apiSECRET };
