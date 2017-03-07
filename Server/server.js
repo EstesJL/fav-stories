@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
 var path = require('path');
-// var request = require('request');
+var Q = require('q');
 
 
 var app = express();
@@ -18,16 +18,15 @@ app.use(morgan('dev'));
 
 // app.use(bodyParser.urlencoded({ extended: true }));
 // app.use('/node_modules', express.static(__dirname + '/../node_modules'));
-// console.log('path', path.join(__dirname, '/../client'));
 app.use(express.static(path.join(__dirname, '../client')));
 
 
 
 //INITIALIZE
 
-app.get('/home', function(req, res) {
-    res.sendfile(path.join(__dirname, '/../client/index.html'));
-});
+// app.get('/', function(req, res) {
+//     res.sendfile(path.join(__dirname, '/../client/index.html'));
+// });
 
 
 
@@ -46,9 +45,6 @@ var Post = mongoose.model('Post', postSchema);
 //DATABASE FUNCTIONALITY
 
 app.post('/posts', function(req, res, next) {
-    console.log('REQ BODY POST', req.body.post);
-
-    // var post = new Post(req.body.post);
     Post.create(req.body.post, function(err, post) {
         if (err) { return next(err); }
         console.log('CREATING POST', post)
@@ -56,14 +52,22 @@ app.post('/posts', function(req, res, next) {
     });
 });
 
-// var createPost = Q.nbind(postSchema.create, postSchema);
+
+
+app.get('/posts', function(req, res, next) {
+    var promisePosts = Q.nbind(Post.find, Post);
+    console.log('GETTING REQD');
+    promisePosts({})
+    .then(function(posts){
+        res.json(posts)
+      })
+      .fail(function(error){
+        next(error);
+      });
+})
 
 
 app.listen(port, function() {console.log ('Check out the party on port ' + port)});
 
-
-
-// require('./routes')(app, express);
-// require('./models/Posts');
 
 exports = module.exports = app;

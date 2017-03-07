@@ -1,0 +1,10 @@
+<div class = "page-header">
+  <h2>Your Posts Feed</h2>
+</div>
+
+<div ng-controller="MainCtrl">
+    <div ng-repeat='post in allPosts.posts.data'>
+      <a href='{{post.link}}' ng-show='post.link'>{{post.title}}</a>
+      <p ng-show='post.description'>{{post.description}}</p>
+    </div>
+</div>
