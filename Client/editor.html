@@ -2,11 +2,11 @@
   <form>
     <div class ="form-group" ng-submit="addPost()">
       <h3>Share New Post</h3>
-      <input type='text' ng-model='title' placeholder="Title">
+      <input type='text' ng-model='title' placeholder="Title" required>
     </div>
 
     <div class="form-group">
-      <input ng-model='link' placeholder="Link">
+      <input ng-model='link' placeholder="Link" type='url' required>
     </div>
 
     <div class="form-group">

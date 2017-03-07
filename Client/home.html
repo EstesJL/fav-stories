@@ -16,7 +16,16 @@
       <p ng-show='post.description'>{{post.description}}</p>
       </span>
 
+     <!--  <p>{{post.comments}}</p>
+
+      <form>
+        <div class ="form-group" ng-submit="addComment(post._id)">
+          <input type='text' ng-model='comment' ng-change="shout(this)" placeholder="New Comment">
+          <button type='submit' ng-click="addComment(post._id)">Add Comment</button>
+        </div>
+      </form> -->
     </div>
+
   </div>
 
   <div class='sidebar col-md-4'>

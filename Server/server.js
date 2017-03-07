@@ -38,10 +38,18 @@ var postSchema = new mongoose.Schema({
     upvotes: Number,
     description: String,
     image: String,
+    comments: String,
     timestamp: {type: Date, default: Date.now}
 });
 
 var Post = mongoose.model('Post', postSchema);
+
+
+// var commentSchema = new mongoose.Schema({
+//     comment: String
+// });
+
+// var Comment = mongoose.model('Comment', commentSchema);
 
 //DATABASE FUNCTIONALITY
 
@@ -61,15 +69,12 @@ app.post('/posts', function(req, res, next) {
         var image = response.images[generateRandom()].display_sizes[0].uri;
         req.body.post.image = image;
 
-        console.log('REQ BODY POST', req.body.post);
-
         Post.create(req.body.post, function(err, post) {
           if (err) { return next(err); }
           console.log('CREATING POST', post)
           res.send(post);
   });
     });
-
 
 });
 
@@ -85,7 +90,16 @@ app.get('/posts', function(req, res, next) {
       .fail(function(error){
         next(error);
       });
-})
+});
+
+// app.post('/posts/comments', function(req, res, next) {
+//   console.log('COMMENT POST ID', req.body.id);
+//   console.log('COMMENT BODY', req.body);
+//   Post.findByIdAndUpdate(req.body.id, function(err, com) {
+
+//   })
+// })
+
 
 
 app.listen(port, function() {console.log ('Check out the party on port ' + port)});

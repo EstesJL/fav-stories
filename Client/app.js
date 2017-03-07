@@ -40,38 +40,76 @@ app.factory('http', function ($http) {
       });
   }
 
+  // var addCom = function(id, newComment) {
+  //   return $http({
+  //     method: 'POST',
+  //     url: '/posts/comments',
+  //     data: {comment: newComment}
+  //   });
+  // }
+
+  // var getCom = function() {
+  //   console.log('GETTING COMMENTS');
+  //   return $http({
+  //       method: 'GET',
+  //       url: '/posts/comments'
+  //     })
+  //     .then(function(res) {
+  //       return res;
+  //     });
+  // }
+
   return {
     add: add,
-    get: get
-    // updateVotes: updateVotes
+    get: get,
+    // addCom: addCom,
+    // getCom: getCom
   }
 })
 
 app.controller('MainCtrl', [
   '$scope',
   'http',
-  function($scope, http) {
+  '$stateParams',
+  function($scope, http, $stateParams) {
 
     $scope.allPosts = {};
+  //   $scope.comment = '';
 
-    $scope.getPosts = function() {
-      http.get()
-      .then(function(posts) {
-        $scope.allPosts.posts = posts;
-      });
+  // $scope.shout = function(e) {
+  //   $scope.comment = e.comment;
+  //   console.log(e.comment);
+  // }
+
+  $scope.getPosts = function() {
+    http.get()
+    .then(function(posts) {
+      $scope.allPosts.posts = posts;
+    });
   };
 
   $scope.getPosts();
 
+//   $scope.addComment = function(id) {
+//     if ($scope.comment === '') { return; }
 
+
+//     var newComment = $scope.comment;
+//     console.log('NEW COMMENT', $scope.comment);
+//     console.log('POST ID', id);
+
+//     http.addCom(id, newComment)
+//     .then(function(res) {
+//       console.log('COMMENT ADDED', res);
+//     })
+//     $scope.comment = '';
+//   };
 }]);
 
 app.controller('EditorCtrl', [
   '$scope',
   'http',
   function($scope, http) {
-    // $scope.posts = posts.posts;
-
 
     $scope.addPost = function() {
       if ($scope.title === '') {return;}
@@ -81,15 +119,14 @@ app.controller('EditorCtrl', [
         link: $scope.link,
         upvotes: 0,
         description: $scope.description,
-        image: ''
+        image: '',
+        // comments: []
       };
-
-      // $scope.posts.push(newPost);
 
       http.add(newPost)
          .then(function(res){
           http.get();
-            console.log('HTTP ADD', res);
+            console.log('HTTP ADD POST', res);
         });
 
         $scope.title = '';
