@@ -4,18 +4,23 @@ var app = angular.module('newsFeed', ['ui.router']);
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
-  .state('home', {
-      url: '/home',
+    .state('/', {
+      url: '/',
       templateUrl: 'home.html',
       controller: 'MainCtrl'
   })
+  // .state('home', {
+  //     url: '/home',
+  //     templateUrl: 'home.html',
+  //     controller: 'MainCtrl'
+  // })
   .state('edit', {
       url: '/editor',
       templateUrl: 'editor.html',
       controller: 'EditorCtrl'
   });
 
-  $urlRouterProvider.otherwise('home');
+  $urlRouterProvider.otherwise('/');
 }]);
 
 
