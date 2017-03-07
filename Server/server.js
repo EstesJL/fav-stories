@@ -75,7 +75,7 @@ app.post('/posts', function(req, res, next) {
 
 app.get('/', function(req, res) {
   console.log('GETTING / ROUTE');
-  res.sendfile(path.join(__dirname, '../client/index.html');
+  res.sendfile(path.join(__dirname, '../client/index.html'));
 });
 
 
