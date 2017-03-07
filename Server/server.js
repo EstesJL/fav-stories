@@ -19,16 +19,7 @@ mongoose.connect('mongodb://favlinks:favlinks@ds119210.mlab.com:19210/favlinks')
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use('/node_modules', express.static(__dirname + '/../node_modules'));
 app.use(express.static(path.join(__dirname, '../client')));
-
-
-//GET IMAGES
-
-
-
-
 
 
 //SET UP DATABASE
