@@ -18,12 +18,6 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
   $urlRouterProvider.otherwise('home');
 }]);
 
-app.factory('posts', function() {
-  var storage = {
-      posts: []
-  }
-  return storage;
-});
 
 app.factory('http', function ($http) {
 
@@ -55,9 +49,8 @@ app.factory('http', function ($http) {
 
 app.controller('MainCtrl', [
   '$scope',
-  'posts',
   'http',
-  function($scope, posts, http) {
+  function($scope, http) {
 
     $scope.allPosts = {};
 
@@ -65,7 +58,6 @@ app.controller('MainCtrl', [
       http.get()
       .then(function(posts) {
         $scope.allPosts.posts = posts;
-        console.log('ALL POSTS', $scope.allPosts);
       });
   };
 
@@ -76,10 +68,10 @@ app.controller('MainCtrl', [
 
 app.controller('EditorCtrl', [
   '$scope',
-  'posts',
   'http',
-  function($scope, posts, http) {
-    $scope.posts = posts.posts;
+  function($scope, http) {
+    // $scope.posts = posts.posts;
+
 
     $scope.addPost = function() {
       if ($scope.title === '') {return;}
@@ -88,19 +80,22 @@ app.controller('EditorCtrl', [
         title: $scope.title,
         link: $scope.link,
         upvotes: 0,
-        description: $scope.description
+        description: $scope.description,
+        image: ''
       };
 
-      $scope.posts.push(newPost);
+      // $scope.posts.push(newPost);
 
       http.add(newPost)
          .then(function(res){
+          http.get();
             console.log('HTTP ADD', res);
         });
 
         $scope.title = '';
         $scope.link = '';
         $scope.description = '';
+        $scope.image = '';
     }
 
   $scope.flag = false;

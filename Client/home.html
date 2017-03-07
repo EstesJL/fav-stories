@@ -1,10 +1,24 @@
-<div class = "page-header">
-  <h2>Your Posts Feed</h2>
-</div>
-
-<div ng-controller="MainCtrl">
-    <div ng-repeat='post in allPosts.posts.data'>
-      <a href='{{post.link}}' ng-show='post.link'>{{post.title}}</a>
-      <p ng-show='post.description'>{{post.description}}</p>
+<div>
+  <div class="column col-md-8">
+    <div class = "page-header">
+      <h2>Your Posts Feed</h2>
     </div>
+
+    <div ng-repeat='post in allPosts.posts.data'>
+      <a href='{{post.image}}'>
+        <img src='{{post.image}}' height='50' width='50'>
+      </a>
+      <span style="font-size:20px; margin-left:10px;">
+      <a href='{{post.link}}' ng-show='post.link'>{{post.title}}</a>
+      </span>
+
+      <span style="border-width: 10px;">
+      <p ng-show='post.description'>{{post.description}}</p>
+      </span>
+
+    </div>
+  </div>
+
+  <div class='sidebar col-md-4'>
+  </div>
 </div>

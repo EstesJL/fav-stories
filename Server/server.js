@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var path = require('path');
 var Q = require('q');
+var api = require("gettyimages-api");
 
 
 var app = express();
@@ -21,12 +22,11 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../client')));
 
 
+//GET IMAGES
 
-//INITIALIZE
 
-// app.get('/', function(req, res) {
-//     res.sendfile(path.join(__dirname, '/../client/index.html'));
-// });
+
+
 
 
 
@@ -37,6 +37,7 @@ var postSchema = new mongoose.Schema({
     link: String,
     upvotes: Number,
     description: String,
+    image: String,
     timestamp: {type: Date, default: Date.now}
 });
 
@@ -45,18 +46,38 @@ var Post = mongoose.model('Post', postSchema);
 //DATABASE FUNCTIONALITY
 
 app.post('/posts', function(req, res, next) {
-    Post.create(req.body.post, function(err, post) {
-        if (err) { return next(err); }
-        console.log('CREATING POST', post)
-        res.json(post);
+
+  //GET IMAGES
+  var creds = { apiKey: apiKEY, apiSecret: apiSECRET };
+  var client = new api (creds);
+  client.search().images().withPage(1).withPageSize(10).withPhrase('kitty')
+    .execute(function(err, response) {
+        if (err) throw err
+        // console.log('IMAGES', response.images);
+
+        //RANDOMIZE IMAGES
+        var generateRandom = function() { return Math.floor(Math.random() * 10)}
+
+        var image = response.images[generateRandom()].display_sizes[0].uri;
+        req.body.post.image = image;
+
+        console.log('REQ BODY POST', req.body.post);
+
+        Post.create(req.body.post, function(err, post) {
+          if (err) { return next(err); }
+          console.log('CREATING POST', post)
+          res.send(post);
+  });
     });
+
+
 });
 
 
 
 app.get('/posts', function(req, res, next) {
     var promisePosts = Q.nbind(Post.find, Post);
-    console.log('GETTING REQD');
+    console.log('GETTING REQ');
     promisePosts({})
     .then(function(posts){
         res.json(posts)
