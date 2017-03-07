@@ -82,9 +82,10 @@ app.post('/posts', function(req, res, next) {
 
 });
 
-// app.get('/', function(req, res) {
-//   res.redirect('/#!/');
-// })
+app.get('/', function(req, res) {
+  console.log('GETTING / ROUTE');
+  res.redirect('/#!/');
+})
 
 
 app.get('/posts', function(req, res, next) {
