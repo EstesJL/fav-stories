@@ -2,7 +2,7 @@
 
 <html>
   <head>
-    <title>My Favorites Feed</title>
+    <title>My Feed</title>
 
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
@@ -18,16 +18,24 @@
 
   <body ng-app='newsFeed'>
 
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" ui-sref="home">Your Posting App</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a ui-sref="Entries">All Entries</a></li>
+        <li><a ui-sref="New Entry">Add New Entry</a></li>
+    </ul>
+  </nav>
+
   <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <ui-view></ui-view>
       </div>
     </div>
 
-
-    <!-- <script type="text/ng-template" id="/home.html"> -->
         <div class = "page-header">
-            <h1>Your Favorites Feed</h1>
+            <h1>Your Posts Feed</h1>
         </div>
 
 
@@ -40,9 +48,9 @@
 
             </div>
 
-        <form ng-submit='addPost()'>
+        <form>
           <div class ="form-group" ng-submit="addPost()">
-            <h3>New Favorite</h3>
+            <h3>Share New Post</h3>
 
             <input type='text' ng-model='title' placeholder="Title">
           </div>
@@ -52,13 +60,15 @@
           </div>
 
           <div class="form-group">
-          <input ng-model='description' placeholder="Description">
+
+          <button ng-click='descHandler()' ng-hide='flag'>Add description</button>
+          <input ng-show='flag' ng-model='description' placeholder="Description">
           </div>
 
-          <button type='submit'>Submit</button>
+          <button type='submit' ng-click='addPost()'>Share</button>
         </form>
         </div>
-<!--     </script> -->
+
 
   </body>
 </html>

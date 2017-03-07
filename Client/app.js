@@ -71,4 +71,12 @@ app.controller('MainCtrl', [
             $scope.link = '';
             $scope.description = '';
     }
+
+    $scope.flag = false;
+
+    $scope.descHandler = function() {
+        console.log('BEING HANDLED');
+        $scope.flag = true;
+
+    };
     }]);

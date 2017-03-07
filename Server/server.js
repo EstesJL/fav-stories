@@ -23,23 +23,10 @@ app.use(express.static(path.join(__dirname, '../client')));
 
 
 
-//ROUTER
+//INITIALIZE
 
 app.get('/home', function(req, res) {
     res.sendfile(path.join(__dirname, '/../client/index.html'));
-});
-
-
-
-app.post('/posts', function(req, res, next) {
-    console.log('REQ BODY', req.body);
-
-    var post = new postSchema(req.body);
-    post.save(function(err, post) {
-        if (err) { return next(err); }
-        console.log('SAVING POST', post)
-        res.json(post);
-    });
 });
 
 
@@ -54,9 +41,20 @@ var postSchema = new mongoose.Schema({
     timestamp: {type: Date, default: Date.now}
 });
 
-var posts = mongoose.model('posts', postSchema);
+var Post = mongoose.model('Post', postSchema);
 
 //DATABASE FUNCTIONALITY
+
+app.post('/posts', function(req, res, next) {
+    console.log('REQ BODY POST', req.body.post);
+
+    // var post = new Post(req.body.post);
+    Post.create(req.body.post, function(err, post) {
+        if (err) { return next(err); }
+        console.log('CREATING POST', post)
+        res.json(post);
+    });
+});
 
 // var createPost = Q.nbind(postSchema.create, postSchema);
 
