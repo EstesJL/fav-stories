@@ -1,36 +1,65 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 
 <html>
   <head>
-    <title>My News Feed</title>
+    <title>My Favorites Feed</title>
 
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
 
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+
+    <script src="app.js"></script>
+
+    <style> .glyphicon-thumbs-up { cursor:pointer } </style>
+
   </head>
 
   <body ng-app='newsFeed'>
 
-    <script type="text/ng-template" id="/home.html">
+  <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <ui-view></ui-view>
+      </div>
+    </div>
+
+
+    <!-- <script type="text/ng-template" id="/home.html"> -->
         <div class = "page-header">
-            <h1>Your News Feed</h1>
+            <h1>Your Favorites Feed</h1>
         </div>
+
+
+
+        <div ng-controller="MainCtrl">
+
+             <div ng-repeat='post in posts'>
+                <a href='{{post.link}}' ng-show='post.link'>{{post.title}}</a>
+                <p ng-show='post.description'>{{post.description}}</p>
+
+            </div>
+
         <form ng-submit='addPost()'>
           <div class ="form-group" ng-submit="addPost()">
-            <h3>New Post</h3>
+            <h3>New Favorite</h3>
 
             <input type='text' ng-model='title' placeholder="Title">
           </div>
 
-          <div class="form-group" ng-model='link' placeholder="Link">
+          <div class="form-group">
+          <input ng-model='link' placeholder="Link">
           </div>
 
-          <button type='submit'></button>
+          <div class="form-group">
+          <input ng-model='description' placeholder="Description">
+          </div>
+
+          <button type='submit'>Submit</button>
         </form>
-    </script>
-
-
-
+        </div>
+<!--     </script> -->
 
   </body>
+</html>
+
