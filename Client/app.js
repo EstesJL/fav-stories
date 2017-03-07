@@ -1,14 +1,8 @@
 var app = angular.module('newsFeed', ['ui.router']);
-// var http = require('http');
 
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
-  //   .state('/', {
-  //     url: '/',
-  //     templateUrl: 'home.html',
-  //     controller: 'MainCtrl'
-  // })
   .state('home', {
       url: '/home',
       templateUrl: 'home.html',
